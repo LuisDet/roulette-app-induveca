@@ -1,0 +1,210 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Ruleta Grupo Induveca">
+	<main>
+		<div class="commit">
+			<div class="middle">
+				<div class="product product-0">JAMON CASERIO</div>
+				<div class="product product-1">JAMON DE POLLO</div>
+				<span class="product product-2">JAMON DE PAVO</span>
+				<span class="product product-3">SALAMI DE PAVO</span>
+				<span class="product product-4">SALAMI HEALTHY!</span>
+			</div>
+			<div class="boton">
+				<div class="jugar"><button>JUGAR</button></div>
+				<div class="reset display-none">
+					<button class="btnreset">RESETEAR</button>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	const buttonPlay = document.querySelector("button");
+	const $middle = document.querySelector(".middle");
+	const botonReset = document.querySelector(".reset");
+	const botonJugar = document.querySelector(".jugar");
+	const btnReset = document.querySelector(".btnreset");
+	let timer: number;
+
+	let productId: string = "";
+	const productToSort = {
+		0: { name: "pasta", weight: 200_000 },
+		1: { name: "arroz", weight: 50_000 },
+		2: { name: "pescado", weight: 4_000 },
+		3: { name: "salmon", weight: 250 },
+		4: { name: "camaron", weight: 1 },
+	};
+
+	btnReset?.addEventListener("click", () => {
+		$middle?.classList.add("rotate-reset");
+		botonJugar?.classList.remove("display-none");
+		botonReset?.classList.add("display-none");
+		$middle?.classList.remove("animation-" + productId);
+	});
+
+	buttonPlay?.addEventListener("click", () => {
+		let $productLabel = document.querySelector(".product-" + productId);
+		$productLabel?.classList.remove("font-winner");
+
+		clearTimeout(timer);
+
+		let numberOfSort: number = Math.ceil(
+			Math.random() * Object.keys(productToSort).length * 1000000 + 1,
+		);
+
+		for (const [id, value] of Object.entries(productToSort)) {
+			if (value.weight < numberOfSort) {
+				productId = id;
+				break;
+			}
+		}
+		$middle?.classList.remove("rotate-reset");
+		$middle?.classList.add("animation-" + productId);
+		botonJugar?.classList.add("display-none");
+		botonReset?.classList.remove("display-none");
+
+		timer = setTimeout(() => {
+			$productLabel = document.querySelector(".product-" + productId);
+
+			$productLabel?.classList.add("font-winner");
+		}, 9800);
+	});
+</script>
+
+<style>
+	button {
+		background-color: #8e1737;
+		padding-inline: 100px;
+		padding-block: 10px;
+		border-radius: 10px;
+		font-size: 32px;
+		color: white;
+		font-weight: bold;
+	}
+	.product {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		font-size: 24px;
+		color: #d9cdb3;
+		font-weight: bold;
+		text-align: right;
+		width: 250px;
+	}
+	.product-0 {
+		transform-origin: center left;
+		transform: rotate(0deg) translate(100px);
+	}
+	.product-1 {
+		transform-origin: center left;
+		transform: rotate(72deg) translate(100px);
+	}
+	.product-2 {
+		transform-origin: center left;
+		transform: rotate(144deg) translate(100px);
+	}
+	.product-3 {
+		transform-origin: center left;
+		transform: rotate(216deg) translate(100px);
+	}
+	.product-4 {
+		transform-origin: center left;
+		transform: rotate(288deg) translate(100px);
+	}
+	.display-none {
+		display: none;
+	}
+	.middle {
+		position: relative;
+		top: 50%;
+		left: 50%;
+		background-color: transparent;
+		width: 10px;
+		height: 10px;
+		width: 10px;
+		height: 10px;
+		animation-duration: 10s;
+		animation-timing-function: ease, step-start,
+			cubic-bezier(0.1, 0.7, 1, 0.1);
+	}
+	.commit {
+		display: flex;
+		/* align-items: center; */
+		justify-content: center;
+		flex-direction: column;
+		gap: 400px;
+	}
+	.animation-5 {
+		transform: rotate(0deg);
+	}
+	.animation-0 {
+		animation-name: rotation-roulette-0;
+		transform: rotate(3240deg);
+	}
+	.animation-1 {
+		animation-name: rotation-roulette-1;
+		transform: rotate(3528deg);
+	}
+	.animation-2 {
+		animation-name: rotation-roulette-2;
+		transform: rotate(3456deg);
+	}
+	.animation-3 {
+		animation-name: rotation-roulette-3;
+		transform: rotate(3384deg);
+	}
+	.animation-4 {
+		animation-name: rotation-roulette-4;
+		transform: rotate(3312deg);
+	}
+
+	.font-winner {
+		color: #8e1737;
+	}
+
+	@keyframes rotation-roulette-0 {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(3240deg);
+		}
+	}
+	@keyframes rotation-roulette-1 {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(3528deg);
+		}
+	}
+	@keyframes rotation-roulette-2 {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(3456deg);
+		}
+	}
+	@keyframes rotation-roulette-3 {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(3384deg);
+		}
+	}
+	@keyframes rotation-roulette-4 {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(3312deg);
+		}
+	}
+</style>
