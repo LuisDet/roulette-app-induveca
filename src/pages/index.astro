@@ -138,6 +138,15 @@ import Layout from "../layouts/Layout.astro";
 		pointer-events: none;
 	}
 
+	@media (max-width: 500px) {
+		.container::before {
+			border: 12px solid transparent;
+		}
+		.container::after {
+			border: 5px solid #fff;
+		}
+	}
+
 	.boton {
 		position: absolute;
 		top: 50%;
@@ -193,6 +202,12 @@ import Layout from "../layouts/Layout.astro";
 		.product {
 			font-size: 12px;
 			padding-inline-start: calc(var(--width-roullete) / 6);
+		}
+	}
+	@media (max-width: 400px) {
+		.product {
+			font-size: 10px;
+			padding-inline-start: calc(var(--width-roullete) / 7);
 		}
 	}
 
@@ -277,6 +292,16 @@ import Layout from "../layouts/Layout.astro";
 		.svg-triangle {
 			width: 100px;
 			height: 100px;
+			top: 50%;
+			left: 87%;
+			transform: rotate(180deg) translateY(50%);
+		}
+	}
+
+	@media (max-width: 400px) {
+		.svg-triangle {
+			width: 75px;
+			height: 75px;
 			top: 50%;
 			left: 87%;
 			transform: rotate(180deg) translateY(50%);
