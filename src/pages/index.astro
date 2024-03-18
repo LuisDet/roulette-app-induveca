@@ -5,9 +5,15 @@ import Layout from "../layouts/Layout.astro";
 <Layout title="Ruleta Grupo Induveca">
 	<main>
 		<div class="container">
-			<!-- <svg xmlns="http://www.w3.org/2000/svg" class="svg-triangle"
-				><path d="m10 50 80-40v80Z"></path></svg
-			> -->
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+				class="svg-triangle"
+				><path
+					d="m14.707 11.293-4-4A1 1 0 0 0 9 8v8a1 1 0 0 0 1.707.707l4-4a1 1 0 0 0 0-1.414z"
+					style="fill:#ff8e31"
+					data-name="Right"></path></svg
+			>
 			<div class="commit">
 				<div class="product product-0">JAMON CASERIO</div>
 				<div class="product product-1">JAMON DE POLLO</div>
@@ -38,14 +44,14 @@ import Layout from "../layouts/Layout.astro";
 
 	let productId: string = "";
 	const productToSort = {
-		0: { weight: 500_000 },
-		1: { weight: 200_000 },
-		2: { weight: 50_000 },
-		3: { weight: 20_000 },
-		4: { weight: 5_000 },
-		5: { weight: 1_000 },
-		6: { weight: 200 },
-		7: { weight: 10 },
+		0: { weight: 5_000 },
+		1: { weight: 2_000 },
+		2: { weight: 500 },
+		3: { weight: 200 },
+		4: { weight: 50 },
+		5: { weight: 10 },
+		6: { weight: 2 },
+		7: { weight: 1 },
 	};
 
 	btnReset?.addEventListener("click", () => {
@@ -66,16 +72,10 @@ import Layout from "../layouts/Layout.astro";
 			total_value += value.weight;
 		}
 
-		let numberOfSort: number = Math.ceil(
-			Math.random() * Object.keys(productToSort).length * total_value + 1,
-		);
+		let numberOfSort: number = Math.ceil(Math.random() * total_value + 1);
 
 		for (const [id, value] of Object.entries(productToSort)) {
-			console.log(value.weight);
-			console.log(numberOfSort);
-			if (value.weight < 1001) {
-				console.log(id);
-
+			if (value.weight < numberOfSort) {
 				productId = id;
 				break;
 			}
@@ -99,9 +99,7 @@ import Layout from "../layouts/Layout.astro";
 	.container {
 		display: flow-root;
 		position: relative;
-		/* border: 15px solid #fff; */
 		border-radius: 50%;
-		/* clip-path: circle(50% at 50% 50%); */
 		width: var(--width-roullete);
 		height: var(--width-roullete);
 	}
@@ -112,10 +110,8 @@ import Layout from "../layouts/Layout.astro";
 		width: var(--width-roullete);
 		height: var(--width-roullete);
 		top: 0;
-		/* left: 0; */
 		right: 1px;
 		bottom: 0;
-		/* transform: translate(1px, 1px); */
 		border-radius: 50%;
 		border: 30px solid transparent;
 		background: linear-gradient(45deg, #dd5f88, #b4355e) border-box;
@@ -152,9 +148,6 @@ import Layout from "../layouts/Layout.astro";
 	button {
 		border-radius: 50%;
 		background-color: #f2c04f;
-		/* padding-inline: 100px;
-		padding-block: 10px;
-		border-radius: 10px; */
 		font-size: 32px;
 		border: none;
 		width: 200px;
@@ -166,7 +159,7 @@ import Layout from "../layouts/Layout.astro";
 		font-family: inherit;
 	}
 
-	@media screen, (max-width: 1250px) {
+	@media (max-width: 500px) {
 		button {
 			font-size: 10px;
 			width: 50px;
@@ -196,7 +189,7 @@ import Layout from "../layouts/Layout.astro";
 		clip-path: polygon(100% 27%, 0 50%, 100% 73%);
 	}
 
-	@media screen, (max-width: 1250px) {
+	@media (max-width: 500px) {
 		.product {
 			font-size: 12px;
 			padding-inline-start: calc(var(--width-roullete) / 6);
@@ -258,7 +251,6 @@ import Layout from "../layouts/Layout.astro";
 			cubic-bezier(0.1, 0.7, 1, 0.1);
 	}
 	.commit {
-		/* background-color: #fff; */
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -269,33 +261,35 @@ import Layout from "../layouts/Layout.astro";
 		animation-duration: 10s;
 		animation-timing-function: ease, step-start,
 			cubic-bezier(0.1, 0.7, 1, 0.1);
-		/* outline: 800px solid #fff; */
-		/* flex-direction: column; */
-		/* gap: 400px; */
 	}
 
 	.svg-triangle {
 		color: #b2345c;
 		position: absolute;
-		width: 25px;
-		height: 25px;
+		width: 200px;
+		height: 200px;
 		z-index: 999;
 		top: 50%;
-		left: 102%;
-		transform: translateY(-50%);
+		left: 90%;
+		transform: rotate(180deg) translateY(50%);
 	}
+	@media (max-width: 500px) {
+		.svg-triangle {
+			width: 100px;
+			height: 100px;
+			top: 50%;
+			left: 87%;
+			transform: rotate(180deg) translateY(50%);
+		}
+	}
+
 	.svg-triangle path {
 		stroke-width: 20;
-		stroke: #c23e38;
 		fill: #f2c04f;
-		width: 25x;
-		height: 25px;
 		stroke-linejoin: round;
 		stroke-linecap: round;
 	}
-	/* .animation-5 {
-		transform: rotate(0deg);
-	} */
+
 	.animation-0 {
 		animation-name: rotation-roulette-0;
 		transform: rotate(3240deg);
